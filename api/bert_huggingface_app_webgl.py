@@ -94,7 +94,7 @@ def generate_sentence(input):
 	length = random.randint(10,20)
 	temperature = random.uniform(0.7,0.9)
 	with torch.no_grad():
-		for jj in range(2):
+		for _ in range(2):
 			for _ in range(length):
 				outputs = gpt_model(generated)
 				next_token_logits = outputs[0][:, -1, :] / (temperature if temperature > 0 else 1.)
@@ -116,8 +116,7 @@ def generate_sentence(input):
 		except ValueError as e:
 			pass
 		else:
-			txt = sentence + text.replace("\n", "") + "."
-			return txt
+			return sentence + text.replace("\n", "") + "."
 
 @app.before_first_request
 def warm_up_networks():
